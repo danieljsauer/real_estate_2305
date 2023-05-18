@@ -41,4 +41,42 @@ RSpec.describe House do
     end 
   end 
 
+  describe "iteration 3" do
+    it "can check value against market average"  do 
+      house = House.new("$400000", "123 sugar lane")
+      expect(house.above_market_average?).to be false 
+    end
+    
+    it "can search number of rooms by category" do 
+      house = House.new("$400000", "123 sugar lane")
+      room_1 = Room.new(:bedroom, 10, '13')
+      room_2 = Room.new(:bedroom, 11, '15')    
+      room_3 = Room.new(:living_room, 25, '15')
+      room_4 = Room.new(:basement, 30, '41')
+      house.add_room(room_1)
+      house.add_room(room_2)
+      house.add_room(room_3)
+      house.add_room(room_4)
+      expect(house.rooms_from_category(:bedroom)).to eq([room_1, room_2])
+    end 
+
+    it "can add all room area for total home area" do 
+      house = House.new("$400000", "123 sugar lane")
+      room_1 = Room.new(:bedroom, 10, '13')
+      room_2 = Room.new(:bedroom, 11, '15')    
+      room_3 = Room.new(:living_room, 25, '15')
+      room_4 = Room.new(:basement, 30, '41')
+      house.add_room(room_1)
+      house.add_room(room_2)
+      house.add_room(room_3)
+      house.add_room(room_4)
+      expect(house.area).to eq(1900)
+    end 
+
+    it "can list details as a hash" do 
+      house = House.new("$400000", "123 sugar lane")
+      expect(house.details).to eq({"price" => 400000, "address" => "123 sugar lane"})
+    end 
+  end 
+
 end
